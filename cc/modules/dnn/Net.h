@@ -28,6 +28,8 @@ public:
 	static NAN_METHOD(SetInputAsync);
 	static NAN_METHOD(Forward);
 	static NAN_METHOD(ForwardAsync);
+	static NAN_METHOD(GetOutputsNames);
+	static NAN_METHOD(GetOutputsNamesAsync);
 };
 
 #endif

@@ -20,6 +20,8 @@ NAN_MODULE_INIT(Net::Init) {
   Nan::SetPrototypeMethod(ctor, "setInputAsync", SetInputAsync);
   Nan::SetPrototypeMethod(ctor, "forward", Forward);
   Nan::SetPrototypeMethod(ctor, "forwardAsync", ForwardAsync);
+  Nan::SetPrototypeMethod(ctor, "getOutputsNames", GetOutputsNames);
+  Nan::SetPrototypeMethod(ctor, "getOutputsNamesAsync", GetOutputsNamesAsync);
 
   target->Set(Nan::New("Net").ToLocalChecked(), ctor->GetFunction());
 };
@@ -58,6 +60,22 @@ NAN_METHOD(Net::ForwardAsync) {
   FF::AsyncBinding(
     std::make_shared<NetBindings::ForwardWorker>(Net::Converter::unwrap(info.This())),
     "Net::ForwardAsync",
+    info
+  );
+}
+
+NAN_METHOD(Net::GetOutputsNames) {
+  FF::SyncBinding(
+    std::make_shared<NetBindings::GetOutputsNamesWorker>(Net::Converter::unwrap(info.This())),
+    "Net::GetOutputsNames",
+    info
+  );
+}
+
+NAN_METHOD(Net::GetOutputsNamesAsync) {
+  FF::AsyncBinding(
+    std::make_shared<NetBindings::GetOutputsNamesWorker>(Net::Converter::unwrap(info.This())),
+    "Net::GetOutputsNamesAsync",
     info
   );
 }

@@ -60,7 +60,36 @@ namespace NetBindings {
       );
     }
   };
-  
+
+  struct GetOutputsNamesWorker : public CatchCvExceptionWorker {
+  public:
+	cv::dnn::Net self;
+	GetOutputsNamesWorker(cv::dnn::Net self) {
+	  this->self = self;
+	}
+
+	std::vector<std::string> returnValue;
+
+	std::string executeCatchCvExceptionWorker() {
+		static std::vector<std::string> names;
+		if (names.empty())
+		{
+			std::vector<int> outLayers = self.getUnconnectedOutLayers();
+			std::vector<cv::String> layersNames = self.getLayerNames();
+			names.resize(outLayers.size());
+			for (size_t i = 0; i < outLayers.size(); ++i)
+				names[i] = layersNames[outLayers[i] - 1];
+		}
+
+		returnValue = names;
+		return "";
+	}
+
+	v8::Local<v8::Value> getReturnValue() {
+	  return StringArrayConverter::wrap(returnValue);
+	}
+
+  };
 
 }
 
