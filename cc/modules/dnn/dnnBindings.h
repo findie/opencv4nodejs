@@ -61,6 +61,33 @@ namespace DnnBindings {
       );
     }
   };
+
+  struct ReadNetFromDarknetWorker : public CatchCvExceptionWorker {
+  public:
+    std::string cfgFile;
+    std::string darknetModel = "";
+
+    cv::dnn::Net net;
+
+    std::string executeCatchCvExceptionWorker() {
+      net = cv::dnn::readNetFromDarknet(cfgFile, darknetModel);
+      if (net.empty()) {
+        return std::string("failed to load cfgFile: " + cfgFile + ", modelFile: " + darknetModel).data();
+      }
+      return "";
+    }
+
+    v8::Local<v8::Value> getReturnValue() {
+      return Net::Converter::wrap(net);
+    }
+
+    bool unwrapRequiredArgs(Nan::NAN_METHOD_ARGS_TYPE info) {
+      return (
+        StringConverter::arg(0, &cfgFile, info) ||
+        StringConverter::arg(1, &darknetModel, info)
+      );
+    }
+  };
   
   struct BlobFromImageWorker : public CatchCvExceptionWorker {
   public:

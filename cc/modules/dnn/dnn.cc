@@ -15,6 +15,8 @@ NAN_MODULE_INIT(Dnn::Init) {
   Nan::SetMethod(target, "readNetFromTensorflowAsync", ReadNetFromTensorflowAsync);
   Nan::SetMethod(target, "readNetFromCaffe", ReadNetFromCaffe);
   Nan::SetMethod(target, "readNetFromCaffeAsync", ReadNetFromCaffeAsync);
+  Nan::SetMethod(target, "readNetFromDarknet", ReadNetFromDarknet);
+  Nan::SetMethod(target, "readNetFromDarknetAsync", ReadNetFromDarknetAsync);
   Nan::SetMethod(target, "blobFromImage", BlobFromImage);
   Nan::SetMethod(target, "blobFromImageAsync", BlobFromImageAsync);
   Nan::SetMethod(target, "blobFromImages", BlobFromImages);
@@ -49,6 +51,22 @@ NAN_METHOD(Dnn::ReadNetFromCaffeAsync) {
   FF::AsyncBinding(
     std::make_shared<DnnBindings::ReadNetFromCaffeWorker>(),
     "ReadNetFromCaffeAsync",
+    info
+  );
+}
+
+NAN_METHOD(Dnn::ReadNetFromDarknet) {
+  FF::SyncBinding(
+    std::make_shared<DnnBindings::ReadNetFromDarknetWorker>(),
+    "ReadNetFromDarknet",
+    info
+  );
+}
+
+NAN_METHOD(Dnn::ReadNetFromDarknetAsync) {
+  FF::AsyncBinding(
+    std::make_shared<DnnBindings::ReadNetFromDarknetWorker>(),
+    "ReadNetFromDarknetAsync",
     info
   );
 }

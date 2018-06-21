@@ -15,6 +15,8 @@ public:
 	static NAN_METHOD(ReadNetFromTensorflowAsync);
 	static NAN_METHOD(ReadNetFromCaffe);
 	static NAN_METHOD(ReadNetFromCaffeAsync);
+	static NAN_METHOD(ReadNetFromDarknet);
+	static NAN_METHOD(ReadNetFromDarknetAsync);
 	static NAN_METHOD(BlobFromImage);
 	static NAN_METHOD(BlobFromImageAsync);
 	static NAN_METHOD(BlobFromImages);

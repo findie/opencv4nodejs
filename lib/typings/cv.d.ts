@@ -121,6 +121,8 @@ export function readNetFromCaffe(prototxt: string, modelPath?: string): Net;
 export function readNetFromCaffeAsync(prototxt: string, modelPath?: string): Promise<Net>;
 export function readNetFromTensorflow(modelPath: string): Net;
 export function readNetFromTensorflowAsync(modelPath: string): Promise<Net>;
+export function readNetFromDarknet(cfgFile:string, modelPath: string): Net;
+export function readNetFromDarknetAsync(cfgFile:string, modelPath: string): Promise<Net>;
 export function recoverPose(E: Mat, points1: Point2[], points2: Point2[], focal?: number, pp?: Point2, mask?: Mat): { returnValue: number, R: Mat, T: Vec3 };
 export function recoverPoseAsync(E: Mat, points1: Point2[], points2: Point2[], focal?: number, pp?: Point2, mask?: Mat): Promise<{ returnValue: number, R: Mat, T: Vec3 }>;
 export function sampsonDistance(pt1: Vec2, pt2: Vec2, F: Mat): number;
